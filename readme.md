@@ -15,7 +15,7 @@ public class SpriteLoader : MonoBehaviour {
 
 	void Start () {
 		var spriteRenderer = gameObject.AddComponent <SpriteRenderer> ();
-        spriteRenderer.sprite = /*some sprite resource*/;
+		spriteRenderer.sprite = /*some sprite resource*/;
 	}
 }
 ```
@@ -59,13 +59,15 @@ where both overloads always return valid Texture objects:
 - The **generic** overload returns a Texture:
 
 	```C#
-		meshRenderer.material.mainTexture = Resources.Load <Texture> ("Textures/S") as Texture;
+	// always returns a valid texture
+	meshRenderer.material.mainTexture = Resources.Load <Texture> ("Textures/S") as Texture;
 	```
 
 - As well as the **non-generic** overload:
 
 	```C#
-		meshRenderer.material.mainTexture = Resources.Load ("Textures/S") as Texture;
+	// always returns a valid texture
+	meshRenderer.material.mainTexture = Resources.Load ("Textures/S") as Texture;
 	```
 	
 ## Unity Project
