@@ -2,73 +2,27 @@
 
 Test project to demonstrate different behaviour of [**Resources.Load ()**](https://docs.unity3d.com/ScriptReference/Resources.Load.html) when loading Textures or Sprites.
 
-**Tested with:**
+**Tested with Unity 2017.1.0f3**
 
-- Unity stable: 2017.1.0f3 
-
-## Loading Sprites 
-
-Assume a simple [MonoBehaviour](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html)-derived class to render a Sprite:
-
+## Summary
+The non-generic overload of [**Resources.Load ()**](https://docs.unity3d.com/ScriptReference/Resources.Load.html) returs always null when loading sprites:
+ 
 ```C#
-public class SpriteLoader : MonoBehaviour {
-
-	void Start () {
-		var spriteRenderer = gameObject.AddComponent <SpriteRenderer> ();
-		spriteRenderer.sprite = /*some sprite resource*/;
-	}
-}
+var sprite = Resources.Load ("Sprites/sprite") as Sprite; // always null
 ```
 
-Assigning to `spriteRenderer.sprite` via [Resources.Load ()](https://docs.unity3d.com/ScriptReference/Resources.Load.html) behaves differently, depending on whether or not the generic overload of [Resources.Load ()](https://docs.unity3d.com/ScriptReference/Resources.Load.html) is used:
-
-- The **generic** overload returns a valid Sprite:
-
-	```C#
-	// returns a valid sprite
-	spriteRenderer.sprite = Resources.Load <Sprite> ("Sprites/S") as Sprite;
-	```
-
-- The **non-generic** overload always returns null:
-
-	```C#
-	// always returns null
-	spriteRenderer.sprite = Resources.Load ("Sprites/S") as Sprite;
-	```
-
-## Loading Textures
-
-A similar setup as above for Textures:
+Only the generic overload of [**Resources.Load ()**](https://docs.unity3d.com/ScriptReference/Resources.Load.html) returns valid sprites:
 
 ```C#
-public class TextureLoader : MonoBehaviour {
-
-	void Start () {
-		var cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		var meshRenderer = cube.GetComponent <MeshRenderer> ();
-
-		meshRenderer.material.mainTexture = /*some texture resource*/;
-			
-		cube.transform.parent = this.transform;
-		cube.transform.localPosition = Vector3.zero;
-	}
-}
+var sprite = Resources.Load <Sprite> ("Sprites/sprite") as Sprite; // fine
 ```
-where both overloads always return valid Texture objects:
 
-- The **generic** overload returns a Texture:
+At the same time, there's no difference when loading textures:
 
-	```C#
-	// always returns a valid texture
-	meshRenderer.material.mainTexture = Resources.Load <Texture> ("Textures/S") as Texture;
-	```
-
-- As well as the **non-generic** overload:
-
-	```C#
-	// always returns a valid texture
-	meshRenderer.material.mainTexture = Resources.Load ("Textures/S") as Texture;
-	```
+```C#
+var texture = Resources.Load ("Textures/texture") as Texture; // fine
+var texture = Resources.Load <Texture> ("Textures/texture") as Texture; // also fine
+```
 	
 ## Unity Project
 
