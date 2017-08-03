@@ -5,7 +5,7 @@ Test project to demonstrate different behaviour of [**Resources.Load ()**](https
 **Tested with Unity 2017.1.0f3**
 
 ## Summary
-The non-generic overload of [**Resources.Load ()**](https://docs.unity3d.com/ScriptReference/Resources.Load.html) returs always null when loading sprites:
+The non-generic overload of [**Resources.Load ()**](https://docs.unity3d.com/ScriptReference/Resources.Load.html) returns always null when loading sprites:
  
 ```C#
 var sprite = Resources.Load ("Sprites/sprite") as Sprite; // always null
